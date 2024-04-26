@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
+
 public class Enemy : LivingEntity
 {
     // 추적
@@ -15,6 +17,8 @@ public class Enemy : LivingEntity
 
     // 애니메이션
     private Animator enemyAnimator;
+
+    public IObjectPool<Enemy> pool;
 
     private bool hasTarget
     {
@@ -113,5 +117,9 @@ public class Enemy : LivingEntity
         }
 
         // 비활성화 후 오브젝트 풀에 집어넣는다.
+        if (pool != null) 
+        {
+            pool.Release(this);
+        }
     }
 }
