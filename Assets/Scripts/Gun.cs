@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public Transform fireTransform; // 총알이 발사될 위치
-    private LineRenderer bulletLineRenderer; // 총알 궤적을 그리기 위한 렌더러
-    private AudioSource gunAudioPlayer; // 총 소리 재생기
-    public AudioClip shotClip; // 총 소리 클립
-    private float fireDistance = 50f; // 사정거리
-    public float fireInterval = 1f; // 발사 간격
-    private float lastFireTime; // 총을 마지막으로 발사한 시점
+    public Transform fireTransform;
+    private LineRenderer bulletLineRenderer;
+    public ParticleSystem gunParticles;
+    private AudioSource gunAudioPlayer;
+    public AudioClip shotClip;
+    private float fireDistance = 50f;
+    public float fireInterval = 1f;
+    private float lastFireTime;
     public float damage = 25f;
 
     private void Awake()
@@ -47,7 +48,7 @@ public class Gun : MonoBehaviour
     private void Shot()
     {
         var hitPoint = Vector3.zero;
-        var ray = new Ray(fireTransform.position, fireTransform.forward); // ray를 쏜다.
+        var ray = new Ray(fireTransform.position, fireTransform.forward);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, fireDistance))
         {
@@ -75,6 +76,9 @@ public class Gun : MonoBehaviour
         bulletLineRenderer.SetPosition(0, fireTransform.position);
         bulletLineRenderer.SetPosition(1, hitPosition);
 
+        gunParticles.transform.position = fireTransform.position;
+        gunParticles.transform.rotation = Quaternion.LookRotation(fireTransform.forward);
+        gunParticles.Play();
         gunAudioPlayer.PlayOneShot(shotClip);
 
         // 0.03초 동안 잠시 처리를 대기

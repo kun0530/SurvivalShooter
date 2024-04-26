@@ -11,7 +11,7 @@ public class Enemy : LivingEntity
     private NavMeshAgent pathFinder;
 
     // 피격
-    public ParticleSystem hitEffect;
+    public ParticleSystem hitEffects;
 
     // 애니메이션
     private Animator enemyAnimator;
@@ -73,9 +73,9 @@ public class Enemy : LivingEntity
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        hitEffect.transform.position = hitPoint;
-        hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
-        hitEffect.Play();
+        hitEffects.transform.position = hitPoint;
+        hitEffects.transform.rotation = Quaternion.LookRotation(hitNormal);
+        hitEffects.Play();
 
         base.OnDamage(damage, hitPoint, hitNormal);
     }
@@ -86,14 +86,14 @@ public class Enemy : LivingEntity
         pathFinder.enabled = false;
 
         enemyAnimator.SetTrigger("Die");
-        Debug.Log("Death Animation: " + ", called at: " + Time.time);
+        // Debug.Log("Death Animation: " + ", called at: " + Time.time);
 
         base.Die();
     }
     
-    public void StartSinking(string s)
+    private void StartSinking(string s)
     {
-        Debug.Log("PrintEvent: " + s + ", called at: " + Time.time);
+        // Debug.Log("PrintEvent: " + s + ", called at: " + Time.time);
         var cols = GetComponentsInChildren<Collider>();
         foreach(Collider col in cols)
         {
