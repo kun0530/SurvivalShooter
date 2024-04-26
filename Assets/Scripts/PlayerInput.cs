@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        move = new Vector3(Input.GetAxisRaw(moveAxisXName), 0f, Input.GetAxisRaw(moveAxisZName)).normalized;
+        move = new Vector3(Input.GetAxis(moveAxisXName), 0f, Input.GetAxis(moveAxisZName));
 
         var cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         float rayLength;

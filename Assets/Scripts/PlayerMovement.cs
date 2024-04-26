@@ -11,11 +11,19 @@ public class NewBehaviourScript : MonoBehaviour
 
     private PlayerInput playerInput;
     private Rigidbody playerRigidbody;
+    private Animator playerAnimator;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        playerAnimator.SetFloat("Move", playerInput.move.magnitude);
+        Debug.Log(playerInput.move.magnitude);
     }
 
     private void FixedUpdate()
@@ -32,7 +40,7 @@ public class NewBehaviourScript : MonoBehaviour
     private void Move()
     {
         var pos = playerRigidbody.position;
-        pos += playerInput.move * moveSpeed * Time.deltaTime;
+        pos += playerInput.move.normalized * moveSpeed * Time.deltaTime;
         playerRigidbody.MovePosition(pos);
     }
 }
