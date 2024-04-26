@@ -30,7 +30,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
-        // onDeath 이벤트가 있으면 실행합시다.
+        // onDeath 이벤트가 있으면 실행
 
         isDead = true;
     }

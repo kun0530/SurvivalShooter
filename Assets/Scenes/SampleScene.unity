@@ -760,6 +760,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZomBear
       objectReference: {fileID: 0}
+    - target: {fileID: 2149064039695065479, guid: 9cd7976d475514c69bdcb3b999ecccb2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ad81463952ee94cb1922403fad60798e, type: 2}
     - target: {fileID: 6713740160446450529, guid: 9cd7976d475514c69bdcb3b999ecccb2, type: 3}
       propertyPath: hitEffect
       value: 

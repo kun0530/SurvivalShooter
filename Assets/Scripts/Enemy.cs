@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 public class Enemy : LivingEntity
@@ -38,6 +39,9 @@ public class Enemy : LivingEntity
 
     private void Update()
     {
+        if (isDead)
+            return;
+
         enemyAnimator.SetBool("HasTarget", hasTarget);
     }
 
@@ -74,6 +78,40 @@ public class Enemy : LivingEntity
         hitEffect.Play();
 
         base.OnDamage(damage, hitPoint, hitNormal);
-        Debug.Log(currentHealth);
+    }
+
+    public override void Die()
+    {
+        pathFinder.isStopped = true;
+        pathFinder.enabled = false;
+
+        enemyAnimator.SetTrigger("Die");
+        Debug.Log("Death Animation: " + ", called at: " + Time.time);
+
+        base.Die();
+    }
+    
+    public void StartSinking(string s)
+    {
+        Debug.Log("PrintEvent: " + s + ", called at: " + Time.time);
+        var cols = GetComponentsInChildren<Collider>();
+        foreach(Collider col in cols)
+        {
+            col.enabled = false;
+        }
+        StartCoroutine(Sinking(1f));
+    }
+
+    private IEnumerator Sinking(float duration)
+    {
+        float timer = 0f;
+        while (duration > timer)
+        {
+            timer += Time.deltaTime;
+            transform.position -= new Vector3(0f, 3f * Time.deltaTime, 0f);
+            yield return null;
+        }
+
+        // 비활성화 후 오브젝트 풀에 집어넣는다.
     }
 }
