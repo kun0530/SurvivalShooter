@@ -11,6 +11,7 @@ public class Gun : MonoBehaviour
     private float fireDistance = 50f; // 사정거리
     public float fireInterval = 1f; // 발사 간격
     private float lastFireTime; // 총을 마지막으로 발사한 시점
+    public float damage = 25f;
 
     private void Awake()
     {
@@ -51,6 +52,12 @@ public class Gun : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hitInfo, fireDistance))
         {
             hitPoint = hitInfo.point;
+
+            var damageable = hitInfo.collider.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.OnDamage(damage, hitPoint, hitInfo.normal);
+            }
         }
         else
         {

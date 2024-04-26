@@ -23,7 +23,6 @@ public class NewBehaviourScript : MonoBehaviour
     private void Update()
     {
         playerAnimator.SetFloat("Move", playerInput.move.magnitude);
-        Debug.Log(playerInput.move.magnitude);
     }
 
     private void FixedUpdate()

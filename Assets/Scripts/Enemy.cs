@@ -8,6 +8,13 @@ public class Enemy : LivingEntity
     public LayerMask whatIsTarget;
     private LivingEntity targetEntity;
     private NavMeshAgent pathFinder;
+
+    // 피격
+    public ParticleSystem hitEffect;
+
+    // 애니메이션
+    private Animator enemyAnimator;
+
     private bool hasTarget
     {
         get
@@ -21,38 +28,52 @@ public class Enemy : LivingEntity
     private void Awake()
     {
         pathFinder = GetComponent<NavMeshAgent>();
+        enemyAnimator = GetComponent<Animator>();
     }
 
     private void Start()
     {
-        StartCoroutine(UpdatePath());
+        // StartCoroutine(UpdatePath());
     }
 
-    private IEnumerator UpdatePath()
+    private void Update()
     {
-        while (!isDead)
+        enemyAnimator.SetBool("HasTarget", hasTarget);
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDead)
+            return;
+
+        if (hasTarget)
         {
-            if (hasTarget)
+            pathFinder.isStopped = false;
+            pathFinder.SetDestination(targetEntity.transform.position);
+        }
+        else
+        {
+            pathFinder.isStopped = true;
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 100f, whatIsTarget);
+            foreach (Collider collider in colliders)
             {
-                pathFinder.isStopped = false;
-                pathFinder.SetDestination(targetEntity.transform.position);
-            }
-            else
-            {
-                pathFinder.isStopped = true;
-                Collider[] colliders = Physics.OverlapSphere(transform.position, 50f, whatIsTarget);
-                foreach (Collider collider in colliders)
+                var livingEntity = collider.GetComponent<LivingEntity>();
+                if (livingEntity != null)
                 {
-                    var livingEntity = collider.GetComponent<LivingEntity>();
-                    if (livingEntity != null)
-                    {
-                        targetEntity = livingEntity;
-                        break;
-                    }
+                    targetEntity = livingEntity;
+                    break;
                 }
             }
-
-            yield return new WaitForSeconds(0.25f);
         }
+    }
+
+    public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
+    {
+        hitEffect.transform.position = hitPoint;
+        hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
+        hitEffect.Play();
+
+        base.OnDamage(damage, hitPoint, hitNormal);
+        Debug.Log(currentHealth);
     }
 }

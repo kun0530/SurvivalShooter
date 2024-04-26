@@ -18,7 +18,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         currentHealth = startHealth;
     }
 
-    public void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
+    public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
         currentHealth -= damage;
 
