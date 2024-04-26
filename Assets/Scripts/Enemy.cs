@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -39,6 +40,17 @@ public class Enemy : LivingEntity
     private void Start()
     {
         // StartCoroutine(UpdatePath());
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        pathFinder.enabled = true;
+        var cols = GetComponentsInChildren<Collider>();
+        foreach(Collider col in cols)
+        {
+            col.enabled = true;
+        }
     }
 
     private void Update()

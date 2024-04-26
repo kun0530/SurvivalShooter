@@ -655,7 +655,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9396e700f7ac43d3b53a9ba84895c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zomBearPrefab: {fileID: 6713740160446450529, guid: 9cd7976d475514c69bdcb3b999ecccb2, type: 3}
+  enemyPrefabs:
+  - {fileID: 6713740160446450529, guid: 9cd7976d475514c69bdcb3b999ecccb2, type: 3}
+  - {fileID: 3887074087614283718, guid: 7eb8ef3c4b6824683b299924df4a193d, type: 3}
+  - {fileID: 593121750068750509, guid: 73fdad4ba52644ed7b180cbaa3cabac2, type: 3}
   spawnPoints:
   - {fileID: 1258402887}
   - {fileID: 109902340}
@@ -910,6 +913,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZomBear
       objectReference: {fileID: 0}
+    - target: {fileID: 2149064039685575181, guid: 9cd7976d475514c69bdcb3b999ecccb2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -966,6 +973,10 @@ PrefabInstance:
     - target: {fileID: 5705544709523867760, guid: 7eb8ef3c4b6824683b299924df4a193d, type: 3}
       propertyPath: m_Name
       value: Zombunny
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705544709523867760, guid: 7eb8ef3c4b6824683b299924df4a193d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1024,6 +1035,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hellephant
       objectReference: {fileID: 0}
+    - target: {fileID: 6918987011202567179, guid: 73fdad4ba52644ed7b180cbaa3cabac2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1037,6 +1052,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3001210612302961743, guid: 75a18d850b0ed427dbb48a945b6556f0, type: 3}
+      propertyPath: m_Drag
+      value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001210612302961743, guid: 75a18d850b0ed427dbb48a945b6556f0, type: 3}
+      propertyPath: m_AngularDrag
+      value: Infinity
+      objectReference: {fileID: 0}
     - target: {fileID: 5566203031518198339, guid: 75a18d850b0ed427dbb48a945b6556f0, type: 3}
       propertyPath: m_Name
       value: Player
