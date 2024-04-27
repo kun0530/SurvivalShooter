@@ -9,11 +9,13 @@ public class UiManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
+    public GameObject pauseUi;
 
     void Start()
     {
         scoreText.enabled = true;
         gameOverText.enabled = false;
+        pauseUi.SetActive(false);
     }
 
     public void SetScoreText(int score)

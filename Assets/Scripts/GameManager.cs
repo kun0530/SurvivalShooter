@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
             uiManager.SetScoreText(score);
         }
     }
-    public bool isGameOver { get; private set; }
+    public bool IsPaused { get; private set; }
+    public bool IsGameOver { get; private set; }
 
     private void Start()
     {
@@ -37,14 +38,30 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         Score = 0;
+        IsPaused = false;
     }
 
     private void Update()
     {
-        // 점수 UI 테스트
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (IsGameOver)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Score += 100;
+            PauseOrResumeGame();
         }
+    }
+
+    public void PauseOrResumeGame()
+    {
+        IsPaused = !IsPaused;
+        Time.timeScale = IsPaused ? 0f : 1f;
+        uiManager.pauseUi.SetActive(IsPaused);
+    }
+
+    public void PauseOrResumeGame(bool isPaused)
+    {
+        IsPaused = !isPaused;
+        PauseOrResumeGame();
     }
 }
