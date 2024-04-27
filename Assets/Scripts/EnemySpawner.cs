@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
         Hellephant,
         Count,
     }
-    float[] weights = { 4.5f, 4.5f, 1f };
+    float[] spawnWeights = { 4.5f, 4.5f, 1f };
     public Enemy[] enemyPrefabs;
     private Dictionary<EnemyType, IObjectPool<Enemy>> poolEnemies = new Dictionary<EnemyType, IObjectPool<Enemy>>();
 
@@ -83,21 +83,21 @@ public class EnemySpawner : MonoBehaviour
     private int WeightedRandomPick()
     {
         float totalWeight = 0f;
-        foreach (var weight in weights)
+        foreach (var weight in spawnWeights)
         {
             totalWeight += weight;
         }
 
         var pick = UnityEngine.Random.Range(0.0f, 1.0f);
         int index = 0;
-        for (int j = 0; j < weights.Length; j++)
+        for (int j = 0; j < spawnWeights.Length; j++)
         {
-            if (weights[j] / totalWeight >= pick)
+            if (spawnWeights[j] / totalWeight >= pick)
             {
                 index = j;
                 break;
             }
-            pick -= weights[j] / totalWeight;
+            pick -= spawnWeights[j] / totalWeight;
         }
 
         return index;

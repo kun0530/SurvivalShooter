@@ -135,6 +135,9 @@ PrefabInstance:
       addedObject: {fileID: 5492739714090426741}
     - targetCorrespondingSourceObject: {fileID: 100004, guid: b77f122f451a2394898a24191c26107c, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 4883123316206840003}
+    - targetCorrespondingSourceObject: {fileID: 100004, guid: b77f122f451a2394898a24191c26107c, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 4917188320298102118}
     - targetCorrespondingSourceObject: {fileID: 100004, guid: b77f122f451a2394898a24191c26107c, type: 3}
       insertIndex: -1
@@ -173,6 +176,27 @@ CapsuleCollider:
   m_Height: 2.260001
   m_Direction: 1
   m_Center: {x: -0.011441231, y: 1.0159429, z: 0.044016242}
+--- !u!65 &4883123316206840003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6918987011202567179}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1.02, z: 1.62}
 --- !u!195 &4917188320298102118
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -212,3 +236,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   hitEffects: {fileID: 1736039417642226931}
+  damage: 20
+  attackInterval: 0.5

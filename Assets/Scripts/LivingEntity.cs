@@ -24,6 +24,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0 && !isDead)
         {
+            currentHealth = 0;
             Die();
         }
     }

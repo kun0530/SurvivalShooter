@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Pool;
 
 public class Enemy : LivingEntity
@@ -16,9 +17,15 @@ public class Enemy : LivingEntity
     // 피격
     public ParticleSystem hitEffects;
 
+    // 공격
+    public float damage = 20f;
+    public float attackInterval = 0.5f;
+    private float lastAttackTime;
+
     // 애니메이션
     private Animator enemyAnimator;
 
+    // 오브젝트 풀
     public IObjectPool<Enemy> pool;
 
     private bool hasTarget
@@ -37,6 +44,7 @@ public class Enemy : LivingEntity
         enemyAnimator = GetComponent<Animator>();
     }
 
+
     private void Start()
     {
         // StartCoroutine(UpdatePath());
@@ -45,12 +53,15 @@ public class Enemy : LivingEntity
     protected override void OnEnable()
     {
         base.OnEnable();
+        
         pathFinder.enabled = true;
         var cols = GetComponentsInChildren<Collider>();
         foreach(Collider col in cols)
         {
             col.enabled = true;
         }
+        
+        lastAttackTime = Time.time;
     }
 
     private void Update()
@@ -83,6 +94,24 @@ public class Enemy : LivingEntity
                     targetEntity = livingEntity;
                     break;
                 }
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!isDead && Time.time > lastAttackTime + attackInterval)
+        {
+            var livingEntity = other.GetComponent<LivingEntity>();
+            if (livingEntity != null && livingEntity == targetEntity)
+            {
+                var pos = transform.position;
+                pos.y += 1;
+                var hitPoint = other.ClosestPoint(pos);
+                var hitNomal = other.transform.position - targetEntity.transform.position;
+                livingEntity.OnDamage(damage, hitPoint, hitNomal.normalized);
+
+                lastAttackTime = Time.time;
             }
         }
     }

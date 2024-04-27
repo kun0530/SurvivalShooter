@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Rotate()
     {
+        // 컨트롤러
         transform.LookAt(new Vector3(playerInput.rotate.x, transform.position.y, playerInput.rotate.z));
     }
 
