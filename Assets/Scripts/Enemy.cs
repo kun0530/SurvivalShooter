@@ -16,6 +16,7 @@ public class Enemy : LivingEntity
 
     // 피격
     public ParticleSystem hitEffects;
+    public int score = 10;
 
     // 공격
     public float damage = 20f;
@@ -134,6 +135,8 @@ public class Enemy : LivingEntity
         // Debug.Log("Death Animation: " + ", called at: " + Time.time);
 
         base.Die();
+
+        GameManager.Instance.Score += score;
     }
     
     private void StartSinking(string s)
