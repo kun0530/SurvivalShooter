@@ -6,6 +6,12 @@ using UnityEngine.UI;
 public class PlayerHealth : LivingEntity
 {
     public Slider healthSlider;
+    private Animator playerAnimator;
+
+    private void Awake()
+    {
+        playerAnimator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -21,5 +27,18 @@ public class PlayerHealth : LivingEntity
 
         base.OnDamage(damage, hitPoint, hitDirection);
         healthSlider.value = currentHealth;
+    }
+
+    public override void OnDie()
+    {
+        base.OnDie();
+        GetComponent<PlayerMovement>().enabled = false;
+        playerAnimator.SetTrigger("Die");
+    }
+
+    private void RestartLevel()
+    {
+        GameManager.Instance.GameOver();
+        Time.timeScale = 0f;
     }
 }

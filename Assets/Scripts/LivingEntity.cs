@@ -22,14 +22,14 @@ public class LivingEntity : MonoBehaviour, IDamageable
     {
         currentHealth -= damage;
 
-        if (currentHealth <= 0 && !isDead)
+        if (!isDead && currentHealth <= 0)
         {
             currentHealth = 0;
-            Die();
+            OnDie();
         }
     }
 
-    public virtual void Die()
+    public virtual void OnDie()
     {
         // onDeath 이벤트가 있으면 실행
 

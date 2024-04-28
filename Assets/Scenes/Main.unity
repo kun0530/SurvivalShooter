@@ -1858,7 +1858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &832063644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2240,7 +2240,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 871102155}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1727960935}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &871102155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2451,7 +2463,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 896389692}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1727960935}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: PauseOrResumeGame
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &896389692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5185,12 +5209,12 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
+  - {fileID: 1694758237}
   - {fileID: 705507995}
   - {fileID: 868343913}
-  - {fileID: 1694758237}
   - {fileID: 588180310}
-  - {fileID: 3603643094573060574}
   - {fileID: 1727960936}
-  - {fileID: 1515987518}
   - {fileID: 1373279666}
   - {fileID: 69581854}
+  - {fileID: 3603643094573060574}
+  - {fileID: 1515987518}

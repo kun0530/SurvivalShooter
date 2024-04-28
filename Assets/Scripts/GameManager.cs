@@ -64,4 +64,19 @@ public class GameManager : MonoBehaviour
         IsPaused = !isPaused;
         PauseOrResumeGame();
     }
+
+    public void QuitGame()
+    {
+        Debug.Log("종료!");
+        Application.Quit();
+    }
+
+    public void GameOver()
+    {
+        if (IsGameOver)
+            return;
+        
+        IsGameOver = true;
+        uiManager.gameOverText.enabled = true;
+    }
 }

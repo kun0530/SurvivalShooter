@@ -126,7 +126,7 @@ public class Enemy : LivingEntity
         base.OnDamage(damage, hitPoint, hitNormal);
     }
 
-    public override void Die()
+    public override void OnDie()
     {
         pathFinder.isStopped = true;
         pathFinder.enabled = false;
@@ -134,23 +134,22 @@ public class Enemy : LivingEntity
         enemyAnimator.SetTrigger("Die");
         // Debug.Log("Death Animation: " + ", called at: " + Time.time);
 
-        base.Die();
+        base.OnDie();
 
         GameManager.Instance.Score += score;
     }
     
-    private void StartSinking(string s)
+    private void StartSinking()
     {
-        // Debug.Log("PrintEvent: " + s + ", called at: " + Time.time);
         var cols = GetComponentsInChildren<Collider>();
         foreach(Collider col in cols)
         {
             col.enabled = false;
         }
-        StartCoroutine(Sinking(1f));
+        StartCoroutine(CoSinking(1f));
     }
 
-    private IEnumerator Sinking(float duration)
+    private IEnumerator CoSinking(float duration)
     {
         float timer = 0f;
         while (duration > timer)
