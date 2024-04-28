@@ -128,7 +128,8 @@ public class Enemy : LivingEntity
         hitEffects.transform.position = hitPoint;
         hitEffects.transform.rotation = Quaternion.LookRotation(hitNormal);
         hitEffects.Play();
-        enemyAudioPlayer.PlayOneShot(enemyData.hurtClip);
+        if (!enemyAudioPlayer.isPlaying)
+            enemyAudioPlayer.PlayOneShot(enemyData.hurtClip);
 
         base.OnDamage(damage, hitPoint, hitNormal);
     }

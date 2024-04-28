@@ -24,18 +24,14 @@ public class PlayerInput : MonoBehaviour
         move = new Vector3(Input.GetAxis(moveAxisXName), 0f, Input.GetAxis(moveAxisZName));
 
         //컨트롤러
-        rotate = transform.position + new Vector3(Input.GetAxis(rotateAxisXName), 0f, Input.GetAxis(rotateAxisZName));
+        // rotate = transform.position + new Vector3(Input.GetAxis(rotateAxisXName), 0f, Input.GetAxis(rotateAxisZName));
         // 키마
-        // var cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // float rayLength;
-        // if (plane.Raycast(cameraRay, out rayLength))
-        // {
-        //     rotate = cameraRay.GetPoint(rayLength);
-        // }
-
-        // var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // Physics.Raycast(ray. out RaycastHit hitInfo, LayerMask.GetMask("Floor"));
-        // transform.LookAt(new Vector3(hitInfo.point.x, transform.positoin.y, hitInfo.point.z));
+        var cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float rayLength;
+        if (plane.Raycast(cameraRay, out rayLength))
+        {
+            rotate = cameraRay.GetPoint(rayLength);
+        }
 
         fire = Input.GetButton(fireButtonName);
     }
