@@ -16,15 +16,18 @@ public class Enemy : LivingEntity
 
     // 피격
     public ParticleSystem hitEffects;
-    public int score = 10;
 
     // 공격
-    public float damage = 20f;
     public float attackInterval = 0.5f;
     private float lastAttackTime;
 
+    public EnemyData enemyData;
+
     // 애니메이션
     private Animator enemyAnimator;
+
+    // 오디오
+    private AudioSource enemyAudioPlayer;
 
     // 오브젝트 풀
     public IObjectPool<Enemy> pool;
@@ -43,12 +46,14 @@ public class Enemy : LivingEntity
     {
         pathFinder = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
+        enemyAudioPlayer = GetComponent<AudioSource>();
     }
 
 
     private void Start()
     {
-        // StartCoroutine(UpdatePath());
+        pathFinder.speed = enemyData.speed;
+        startHealth = enemyData.health;
     }
 
     protected override void OnEnable()
@@ -110,7 +115,7 @@ public class Enemy : LivingEntity
                 pos.y += 1;
                 var hitPoint = other.ClosestPoint(pos);
                 var hitNomal = other.transform.position - targetEntity.transform.position;
-                livingEntity.OnDamage(damage, hitPoint, hitNomal.normalized);
+                livingEntity.OnDamage(enemyData.damage, hitPoint, hitNomal.normalized);
 
                 lastAttackTime = Time.time;
             }
@@ -122,6 +127,7 @@ public class Enemy : LivingEntity
         hitEffects.transform.position = hitPoint;
         hitEffects.transform.rotation = Quaternion.LookRotation(hitNormal);
         hitEffects.Play();
+        enemyAudioPlayer.PlayOneShot(enemyData.hurtClip);
 
         base.OnDamage(damage, hitPoint, hitNormal);
     }
@@ -132,11 +138,11 @@ public class Enemy : LivingEntity
         pathFinder.enabled = false;
 
         enemyAnimator.SetTrigger("Die");
-        // Debug.Log("Death Animation: " + ", called at: " + Time.time);
+        enemyAudioPlayer.PlayOneShot(enemyData.deathClip);
 
         base.OnDie();
 
-        GameManager.Instance.Score += score;
+        GameManager.Instance.Score += enemyData.score;
     }
     
     private void StartSinking()
