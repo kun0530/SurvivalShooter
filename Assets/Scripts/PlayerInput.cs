@@ -1,10 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class PlayerInput : MonoBehaviour
 {
+    public enum Controller
+    {
+        KeyboadMouse,
+        GamePad,
+        Count
+    }
+    private Controller controller = Controller.KeyboadMouse;
+
     public static readonly string moveAxisZName = "Vertical";
     public static readonly string moveAxisXName = "Horizontal";
     public static readonly string rotateAxisZName = "VerticalRotate";
@@ -23,16 +32,30 @@ public class PlayerInput : MonoBehaviour
         // 공통
         move = new Vector3(Input.GetAxis(moveAxisXName), 0f, Input.GetAxis(moveAxisZName));
 
-        //컨트롤러
-        // rotate = transform.position + new Vector3(Input.GetAxis(rotateAxisXName), 0f, Input.GetAxis(rotateAxisZName));
-        // 키마
-        var cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float rayLength;
-        if (plane.Raycast(cameraRay, out rayLength))
+        switch (controller)
         {
-            rotate = cameraRay.GetPoint(rayLength);
-        }
+            case Controller.KeyboadMouse:
+                {
+                    var cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    float rayLength;
+                    if (plane.Raycast(cameraRay, out rayLength))
+                    {
+                        rotate = cameraRay.GetPoint(rayLength);
+                    }
+                    break;
+                }
+            case Controller.GamePad:
+                {
+                    rotate = transform.position + new Vector3(Input.GetAxis(rotateAxisXName), 0f, Input.GetAxis(rotateAxisZName));
+                    break;
+                }
+        } 
 
         fire = Input.GetButton(fireButtonName);
+    }
+
+    public void ChangeController(int controller)
+    {
+        this.controller = (Controller)controller;
     }
 }
