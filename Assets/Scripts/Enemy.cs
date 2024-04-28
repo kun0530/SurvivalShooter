@@ -47,13 +47,14 @@ public class Enemy : LivingEntity
         pathFinder = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
         enemyAudioPlayer = GetComponent<AudioSource>();
+
+        startHealth = enemyData.health;
     }
 
 
     private void Start()
     {
         pathFinder.speed = enemyData.speed;
-        startHealth = enemyData.health;
     }
 
     protected override void OnEnable()
