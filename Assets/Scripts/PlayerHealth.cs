@@ -33,6 +33,7 @@ public class PlayerHealth : LivingEntity
     {
         base.OnDie();
         GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<PlayerShooter>().enabled = false;
         playerAnimator.SetTrigger("Die");
     }
 

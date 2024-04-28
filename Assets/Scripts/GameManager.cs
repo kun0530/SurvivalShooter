@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,12 +40,18 @@ public class GameManager : MonoBehaviour
 
         Score = 0;
         IsPaused = false;
+        IsGameOver = false;
+        Time.timeScale = 1f;
     }
 
     private void Update()
     {
         if (IsGameOver)
-            return;
+            {
+                if (Input.GetKeyDown(KeyCode.Return))
+                    Restart();
+                return;
+            }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -78,5 +85,10 @@ public class GameManager : MonoBehaviour
         
         IsGameOver = true;
         uiManager.gameOverText.enabled = true;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
